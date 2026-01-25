@@ -1,0 +1,3 @@
+[submodule "configs-linux"]
+	path = configs-linux
+	url = https://github.com/egnrse/configs.git
