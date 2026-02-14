@@ -161,7 +161,7 @@ if (skip) {
 	install Microsoft.PowerShell,ajeetdsouza.zoxide,junegunn.fzf,Git.Git
 	install Neovim.Neovim,Python.Python.3.14,BurntSushi.ripgrep.GNU
 	install glzr-io.glazewm,AutoHotkey.AutoHotkey
-	install JesseDuffield.lazygit,GnuPG.GnuPG
+	install JesseDuffield.lazygit,GnuPG.GnuPG,UniversalCtags.Ctags
 	Write-Output ""
 	Write-Output "You might need to restart this shell, if you just installed new programs."
 }

@@ -28,7 +28,7 @@ see [linux configs](https://github.com/egnrse/configs#nvim)
 zoxide fzf git
 glazewm zebar AutoHotkey
 nvim python ripgrep
-gpg lazygit
+gpg lazygit ctags
 
 ### windows commands
 ```ps1
