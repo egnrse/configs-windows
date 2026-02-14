@@ -39,6 +39,10 @@ winget upgrade --all
 
 ### git submodule
 ```sh
+git clone --recurse-submodules https://github.com/egnrse/configs-windows
+git pull --recurse-submodules
+
 git submodule add https://github.com/egnrse/configs.git ./configs-linux
 git submodule update
+git submodule update --init --recursive
 ```

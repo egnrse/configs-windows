@@ -9,3 +9,7 @@ https://learn.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-
 explorer: shell:startup
 
 https://github.com/maharmstone/btrfs
+
+Apps:
+ZeroTier.ZeroTierOne
+KDE.KDEConnect
