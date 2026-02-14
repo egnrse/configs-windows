@@ -152,9 +152,10 @@ cd $ScriptDir
 ## install programs
 Write-Header "# installing programs"
 if (skip) {
-	install Microsoft.PowerShell,ajeetdsouza.zoxide,junegunn.fzf,Git.Git,GnuPG.GnuPG
+	install Microsoft.PowerShell,ajeetdsouza.zoxide,junegunn.fzf,Git.Git
 	install Neovim.Neovim,Python.Python.3.14,BurntSushi.ripgrep.GNU
 	install glzr-io.glazewm,AutoHotkey.AutoHotkey
+	install JesseDuffield.lazygit,GnuPG.GnuPG
 	Write-Output ""
 	Write-Output "You might need to restart this shell, if you just installed new programs."
 }
@@ -170,6 +171,7 @@ if (skip) {
 	ask-link "$env:USERPROFILE\.glzr\glazewm" ".\glazewm\" 
 	ask-link "$env:HOMEPATH\.gitconfig_custom" ".\configs-linux\other\.gitconfig_custom"
 	ask-link "$env:HOMEPATH\.gitignore_global" ".\configs-linux\other\.gitignore_global"
+	ask-link "$env:LOCALAPPDATA\lazygit" ".\configs-linux\lazygit\"
 }
 Write-Output ""
 

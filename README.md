@@ -14,6 +14,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 - AutoHotkey
 - git
 - glazewm
+- lazygit
 - nvim
 - powershell
 
@@ -27,6 +28,7 @@ see [linux configs](https://github.com/egnrse/configs#nvim)
 zoxide fzf git
 glazewm zebar AutoHotkey
 nvim python ripgrep
+gpg lazygit
 
 ### windows commands
 ```ps1
