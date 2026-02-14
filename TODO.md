@@ -1,9 +1,5 @@
 v = nvim
 
-create an installer
-link:
-- nvim config
-- glazewm config
 
 install programs: with winget/scoop?
 

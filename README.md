@@ -11,8 +11,11 @@ Set-ExecutionPolicy -Scope Process Bypass
 
 
 ## Synced configs:
+- AutoHotkey
+- git
 - glazewm
 - nvim
+- powershell
 
 ### nvim
 *(configs-linux/nvim/)*  
@@ -21,7 +24,9 @@ see [linux configs](https://github.com/egnrse/configs#nvim)
 ## Appendix
 
 ### Programs
-git nvim glazewm zebar
+zoxide fzf git
+glazewm zebar AutoHotkey
+nvim python ripgrep
 
 ### windows commands
 ```ps1
