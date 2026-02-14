@@ -33,6 +33,7 @@ gpg lazygit
 ### windows commands
 ```ps1
 mklink /D linkdir targetdir
+takeown.exe /F . /R
 winget upgrade --all
 ```
 

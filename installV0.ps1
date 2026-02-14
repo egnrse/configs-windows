@@ -86,6 +86,12 @@ function link-config {
 		}
 	}
 	$fullSource = (Resolve-Path $Source).Path
+	
+	$Dir = Split-Path -parent $Path
+	if (!(Test-Path -Path $Dir)) {
+		Write-Verbose "create parent directory: '$Dir'"
+		New-Item -ItemType Directory -Path $Dir | Out-Null
+	}
 	New-Item -ItemType SymbolicLink `
 		-Path "$Path" `
 		-Target "$fullSource" `
@@ -164,7 +170,7 @@ Write-Output ""
 ## link configs/files
 Write-Header "# linking configs/files"
 if (skip) {
-	$psDir = Split-Path $profile
+	$psDir = Split-Path -Parent $profile
 	ask-link "$psDir\alias.ps1" ".\alias.ps1"
 	# programs
 	ask-link "$env:LOCALAPPDATA\nvim" ".\configs-linux\nvim\"
@@ -203,10 +209,6 @@ Write-Output ""
 
 ## other
 Write-Header "# other stuff"
-if (skip "setup python for nvim") {
-	python -m pip install --upgrade pip
-	python -m pip install pynvim
-}
 if (skip "generate a new gpg key") {
 	gpg --full-generate-key
 	Write-Output "add it to git with 'git config --global user.signingkey <ID>'"

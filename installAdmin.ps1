@@ -68,6 +68,12 @@ function link-config {
 		}
 	}
 	$fullSource = (Resolve-Path $Source).Path
+
+	$Dir = Split-Path -parent $Path
+	if (!(Test-Path -Path $Dir)) {
+		Write-Verbose "create parent directory: '$Dir'"
+		New-Item -ItemType Directory -Path $Dir | Out-Null
+	}
 	New-Item -ItemType SymbolicLink `
 		-Path "$Path" `
 		-Target "$fullSource" `
@@ -112,4 +118,8 @@ if (skip "setup ssh-agent") {
 	$sshCommand = (Get-Command ssh).source
 	git config --global core.sshCommand "'$sshCommand'"
 	Write-Output "add an sshkey with 'ssh-add \$env:USERPROFILE\.ssh'"
+}
+if (skip "setup python for nvim") {
+	python -m pip install --upgrade pip
+	python -m pip install pynvim
 }
