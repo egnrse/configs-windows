@@ -15,8 +15,8 @@ CapsLock::Esc
 {
 	Run "wt.exe"
 	; wait for PowerShell to start (timeout at 5sec)
-	WinWait(".* PowerShell .*", , 5)
-	WinActive
+	WinWait("PowerShell", , 5)
+	WinActivate
 }
 
 ; Win+D: App drawer
