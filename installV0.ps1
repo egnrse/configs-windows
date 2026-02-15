@@ -143,6 +143,45 @@ function add-import {
 	}
 }
 
+# adds $Source to the user startup folder
+# by creating a '.lnk' link
+function add-startup {
+	[CmdletBinding()]
+	param(
+			[Parameter(Mandatory)]
+			[string]$Source,
+			# delete the link
+			[Alias("del","d")]
+			[switch]$delete,
+			[string]$Name
+		 )
+	$Source = (Resolve-Path $Source).Path
+	$startup = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"	
+
+	# make sure the startup folder exists
+	$dir = Split-Path -parent $startup
+	if (!(Test-Path -Path $dir)) {
+		Write-Verbose "create parent directory: '$dir'"
+		New-Item -ItemType Directory -Path $dir | Out-Null
+	}
+
+	if (!($PSBoundParameters.ContainsKey('Name'))) {
+		$Name = [System.IO.Path]::GetFileNameWithoutExtension($Source)
+	}
+
+	$linkPath = "${startup}\${Name}.lnk"
+	if (Test-Path $linkPath) {
+		Remove-Item $linkPath -Force
+		Write-Verbose "deleted old link: '$linkPath'"
+	}
+	if (!($delete)) {
+		$ws = New-Object -ComObject WScript.Shell
+		$shortcut = $ws.CreateShortcut("$linkPath")
+		$shortcut.TargetPath = $Source
+		$shortcut.Save()
+		Write-Verbose "created link: '$linkPath'"
+	}
+}
 
 ## SCRIPT ENTRY ########################################
 
@@ -171,20 +210,21 @@ Write-Output ""
 Write-Header "# linking configs/files"
 if (skip) {
 	$psDir = Split-Path -Parent $profile
-	ask-link "$psDir\alias.ps1" ".\alias.ps1"
+	ask-link "$psDir\alias.ps1" ".\PowerShell\alias.ps1"
 	# programs
 	ask-link "$env:LOCALAPPDATA\nvim" ".\configs-linux\nvim\"
 	ask-link "$env:USERPROFILE\.glzr\glazewm" ".\glazewm\" 
 	ask-link "$env:HOMEPATH\.gitconfig_custom" ".\configs-linux\other\.gitconfig_custom"
 	ask-link "$env:HOMEPATH\.gitignore_global" ".\configs-linux\other\.gitignore_global"
 	ask-link "$env:LOCALAPPDATA\lazygit" ".\configs-linux\lazygit\"
+	ask-link "$env:USERPROFILE\Documents\ahk\" ".\AutoHotkey\"
 }
 Write-Output ""
 
 ## source files
 Write-Header "# source files and stuff"
 if(skip) {
-	if(skip "source alias.ps1") { add-import "$profile" ".\alias.ps1" }
+	if(skip "source alias.ps1") { add-import "$profile" ".\PowerShell\\alias.ps1" }
 	if(skip "load zoxide as jd") {
 		add-import "$profile" "Invoke-Expression (& { (zoxide init --cmd jd powershell | Out-String) })" -clean
 	}
@@ -209,7 +249,10 @@ Write-Output ""
 
 ## other
 Write-Header "# other stuff"
-if (skip "generate a new gpg key") {
+if (skip "autostart AutoHotkey script") {
+	add-startup ".\AutoHotkey\start-ahk-scripts.ps1"
+}
+if (skip -n "generate a new gpg key") {
 	gpg --full-generate-key
 	Write-Output "add it to git with 'git config --global user.signingkey <ID>'"
 	Write-Output "(get the id with 'gpg --list-secret-keys')"

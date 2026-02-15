@@ -109,7 +109,7 @@ if ($Verbose) {
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 cd $ScriptDir
 
-ask-link "$env:windir\v.bat" ".\v.bat"
+ask-link "$env:windir\v.bat" ".\PowerShell\\v.bat"
 
 if (skip "setup ssh-agent") {
 	if ((Get-Service ssh-agent).status -ne "Running") {

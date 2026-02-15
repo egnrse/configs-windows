@@ -1,0 +1,47 @@
+#Requires AutoHotkey 2.0
+
+; system classes to ignore
+; Taskbar, Desktop, Zeebar (might have collisions)
+ignoreClassList := ["Shell_TrayWnd", "Progman", "Tauri Window"]
+
+; Ctrl+Alt+T: Show window info
+^!T::
+{
+	hwnd := WinExist("A")
+	title := WinGetTitle("ahk_id " hwnd)
+	class := WinGetClass("ahk_id " hwnd)
+	minmax := WinGetMinMax("ahk_id " hwnd)
+	MsgBox(
+		"hwnd: " hwnd "`n"
+		"title: " title "`n"
+		"class: " class "`n"
+		"Min/Max: " minmax
+	)
+}
+
+; Win+C: close active window
+#c::
+{
+	hwnd := WinExist("A")
+	class := WinGetClass("ahk_id " hwnd)
+
+	; ignore desktop / shell
+	for ignored in ignoreClassList {
+		if (class = ignored)
+			return
+	}
+
+	WinClose("ahk_id " hwnd)
+}
+
+; Win+M: Maximize toggle
+#m::
+{
+	hwnd := WinExist("A")
+	minmax := WinGetMinMax("ahk_id " hwnd)
+
+	if (minmax = 1)
+		WinRestore("ahk_id " hwnd)
+	else
+		WinMaximize("ahk_id " hwnd)
+}

@@ -30,6 +30,12 @@ glazewm zebar AutoHotkey
 nvim python ripgrep
 gpg lazygit ctags
 
+### windows debloater
+https://github.com/ChrisTitusTech/winutil
+```ps1
+irm "https://christitus.com/win" | iex
+```
+
 ### windows commands
 ```ps1
 mklink /D linkdir targetdir
