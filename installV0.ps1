@@ -178,7 +178,10 @@ function add-startup {
 	if (!($delete)) {
 		$ws = New-Object -ComObject WScript.Shell
 		$shortcut = $ws.CreateShortcut("$linkPath")
-		$shortcut.TargetPath = $Source
+		#$shortcut.TargetPath = "$Source"	# deprecated direct source
+		$shortcut.TargetPath = "pwsh.exe"
+		$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$Source`""
+		$shortcut.WindowStyle = 7	# 7 = minimized, 3 = maximized, 1 = normal
 		$shortcut.Save()
 		Write-Verbose "created link: '$linkPath'"
 	}
