@@ -80,7 +80,8 @@ function link-config {
 		}
 		else {
 			# backup the file/folder
-			$backup = "$Path.bak_$(Get-Date -Format yyyyMMdd_HHmmss)"
+			$PathClean = $Path -replace '\\+$','' # remove trailing ''\'
+			$backup = "${PathClean}.bak_$(Get-Date -Format yyyyMMdd_HHmmss)"
 			Move-Item $Path $backup
 			Write-Verbose "created backup at: '$backup'"
 		}
@@ -212,12 +213,13 @@ if (skip) {
 	$psDir = Split-Path -Parent $profile
 	ask-link "$psDir\alias.ps1" ".\PowerShell\alias.ps1"
 	# programs
-	ask-link "$env:LOCALAPPDATA\nvim" ".\configs-linux\nvim\"
-	ask-link "$env:USERPROFILE\.glzr\glazewm" ".\glazewm\" 
+	ask-link "$env:USERPROFILE\Documents\ahk\" ".\AutoHotkey\"
+	ask-link "$env:USERPROFILE\Documents\PowerToys\" ".\other\PowerToys\"
 	ask-link "$env:HOMEPATH\.gitconfig_custom" ".\configs-linux\other\.gitconfig_custom"
 	ask-link "$env:HOMEPATH\.gitignore_global" ".\configs-linux\other\.gitignore_global"
+	ask-link "$env:USERPROFILE\.glzr\glazewm" ".\glazewm\" 
 	ask-link "$env:LOCALAPPDATA\lazygit" ".\configs-linux\lazygit\"
-	ask-link "$env:USERPROFILE\Documents\ahk\" ".\AutoHotkey\"
+	ask-link "$env:LOCALAPPDATA\nvim" ".\configs-linux\nvim\"
 }
 Write-Output ""
 

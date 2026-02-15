@@ -1,0 +1,173 @@
+{
+  "Install": [
+    {
+      "winget": "JesseDuffield.lazygit",
+      "choco": "lazygit"
+    },
+    {
+      "winget": "Gyan.FFmpeg",
+      "choco": "ffmpeg-full"
+    },
+    {
+      "winget": "OBSProject.OBSStudio",
+      "choco": "obs-studio"
+    },
+    {
+      "winget": "KDE.Kdenlive",
+      "choco": "kdenlive"
+    },
+    {
+      "winget": "Microsoft.WindowsTerminal",
+      "choco": "microsoft-windows-terminal"
+    },
+    {
+      "winget": "Audacity.Audacity",
+      "choco": "audacity"
+    },
+    {
+      "winget": "Mozilla.Firefox",
+      "choco": "firefox"
+    },
+    {
+      "winget": "VideoLAN.VLC",
+      "choco": "vlc"
+    },
+    {
+      "winget": "TheDocumentFoundation.LibreOffice",
+      "choco": "libreoffice-fresh"
+    },
+    {
+      "winget": "KDE.KDEConnect",
+      "choco": "kdeconnect-kde"
+    },
+    {
+      "winget": "Microsoft.PowerShell",
+      "choco": "powershell-core"
+    },
+    {
+      "winget": "Notepad++.Notepad++",
+      "choco": "notepadplusplus"
+    },
+    {
+      "winget": "Neovim.Neovim",
+      "choco": "neovim"
+    },
+    {
+      "winget": "Kitware.CMake",
+      "choco": "cmake"
+    },
+    {
+      "winget": "TorProject.TorBrowser",
+      "choco": "tor-browser"
+    },
+    {
+      "winget": "Valve.Steam",
+      "choco": "steam-client"
+    },
+    {
+      "winget": "Microsoft.PowerToys",
+      "choco": "powertoys"
+    },
+    {
+      "winget": "Hibbiki.Chromium",
+      "choco": "chromium"
+    },
+    {
+      "winget": "nomacs.nomacs",
+      "choco": "nomacs"
+    },
+    {
+      "winget": "ajeetdsouza.zoxide",
+      "choco": "zoxide"
+    },
+    {
+      "winget": "Vencord.Vesktop",
+      "choco": "na"
+    },
+    {
+      "winget": "Git.Git",
+      "choco": "git"
+    },
+    {
+      "winget": "Beeper.Beeper",
+      "choco": "na"
+    },
+    {
+      "winget": "KeePassXCTeam.KeePassXC",
+      "choco": "keepassxc"
+    },
+    {
+      "winget": "glzr-io.glazewm",
+      "choco": "na"
+    },
+    {
+      "winget": "DigitalScholar.Zotero",
+      "choco": "zotero"
+    },
+    {
+      "winget": "7zip.7zip",
+      "choco": "7zip"
+    },
+    {
+      "winget": "PrismLauncher.PrismLauncher",
+      "choco": "prismlauncher"
+    },
+    {
+      "winget": "Joplin.Joplin",
+      "choco": "joplin"
+    }
+  ],
+  "WPFInstall": [
+    "WPFInstalllazygit",
+    "WPFInstallffmpeg",
+    "WPFInstallobs",
+    "WPFInstallkdenlive",
+    "WPFInstallterminal",
+    "WPFInstallaudacity",
+    "WPFInstallfirefox",
+    "WPFInstallvlc",
+    "WPFInstalllibreoffice",
+    "WPFInstallkdeconnect",
+    "WPFInstallpowershell",
+    "WPFInstallnotepadplus",
+    "WPFInstallneovim",
+    "WPFInstallcmake",
+    "WPFInstalltor",
+    "WPFInstallsteam",
+    "WPFInstallpowertoys",
+    "WPFInstallchromium",
+    "WPFInstallnomacs",
+    "WPFInstallzoxide",
+    "WPFInstallvesktop",
+    "WPFInstallgit",
+    "WPFInstallbeeper",
+    "WPFInstallkeepass",
+    "WPFInstallglazewm",
+    "WPFInstallzotero",
+    "WPFInstall7zip",
+    "WPFInstallprismlauncher",
+    "WPFInstalljoplin"
+  ],
+  "WPFFeature": [],
+  "WPFTweaks": [
+    "WPFTweaksRestorePoint",
+    "WPFTweaksDeleteTempFiles",
+    "WPFTweaksRemoveCopilot",
+    "WPFTweaksRemoveOneDrive",
+    "WPFTweaksDisableExplorerAutoDiscovery",
+    "WPFTweaksTelemetry",
+    "WPFTweaksHiber",
+    "WPFTweaksLocation",
+    "WPFTweaksRemoveGallery",
+    "WPFTweaksDiskCleanup",
+    "WPFTweaksActivity",
+    "WPFTweaksWPBT",
+    "WPFTweaksWidget",
+    "WPFTweaksPowershell7Tele",
+    "WPFTweaksUTC",
+    "WPFTweaksConsumerFeatures",
+    "WPFTweaksEdgeDebloat",
+    "WPFTweaksServices",
+    "WPFTweaksEndTaskOnTaskbar"
+  ]
+}

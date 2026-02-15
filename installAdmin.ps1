@@ -123,3 +123,6 @@ if (skip "setup python for nvim") {
 	python -m pip install --upgrade pip
 	python -m pip install pynvim
 }
+if (skip "launch debloater (ChrisTitusTech/winutil)") {
+	iwr -useb https://christitus.com/win | iex
+}
