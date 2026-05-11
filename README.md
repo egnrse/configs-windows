@@ -34,6 +34,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 - lazygit
 - nvim
 - powershell
+- ssh/sshd
 
 ### nvim
 *(configs-linux/nvim/)*  

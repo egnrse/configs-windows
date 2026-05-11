@@ -97,6 +97,29 @@ function ask-link {
 		link-config "$Path" "$Source"
 	}
 }
+# ask link, but harden the permissions on the source files
+function ask-link-root {
+	[CmdletBinding()]
+	param(
+			[Parameter(Mandatory)]
+			[string]$Path,
+			[Parameter(Mandatory)]
+			[string]$Source,
+			[string]$text
+		 )
+	if ($PSBoundParameters.ContainsKey('text')) {
+		ask-link $Path $Source $text
+	} else {ask-link $Path $Source}
+
+	if ($Verbose) {
+		icacls .\other\sshd_config /inheritance:r /grant:r "SYSTEM:(F)" "*S-1-5-32-544:(F)" "*S-1-5-32-545:(R)"
+		# Administrators(F) / Users(R) (lang independant)
+	}
+	else {
+		icacls .\other\sshd_config /inheritance:r /Q /C *> $null
+		icacls .\other\sshd_config /grant:r "SYSTEM:(F)" "*S-1-5-32-544:(F)" "*S-1-5-32-545:(R)" /Q /C *> $null
+	}
+}
 
 ## SCRIPT ENTRY ########################################
 
@@ -109,7 +132,7 @@ if ($Verbose) {
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 cd $ScriptDir
 
-ask-link "$env:windir\v.bat" ".\PowerShell\\v.bat"
+ask-link-root "$env:windir\v.bat" ".\PowerShell\\v.bat"
 
 if (skip "setup ssh-agent") {
 	if ((Get-Service ssh-agent).status -ne "Running") {
@@ -117,7 +140,29 @@ if (skip "setup ssh-agent") {
 	}
 	$sshCommand = (Get-Command ssh).source
 	git config --global core.sshCommand "'$sshCommand'"
-	Write-Output "add an sshkey with 'ssh-add \$env:USERPROFILE\.ssh'"
+	Write-Output "add an sshkey with 'ssh-add $env:USERPROFILE\.ssh\'"
+}
+if (skip "setup sshd") {
+	# install and activate sshd
+	$cap = Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
+	if ($cap.State -ne 'Installed') {
+		Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+	}
+	Start-Service sshd
+	if (-not $?) {Write-Output 'See a more detailed error with: & "$env:WINDIR\System32\OpenSSH\sshd.exe" -t'}
+	Set-Service -Name sshd -StartupType 'Automatic'
+
+	# setup/check firewall rule
+	if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue)) {
+		Write-Verbose "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..."
+			New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+	} else {
+		Write-Verbose "Firewall rule 'OpenSSH-Server-In-TCP' exists."
+	}
+	ask-link-root "$env:PROGRAMDATA\ssh\sshd_config" ".\other\sshd_config"
+	Restart-Service sshd
+	if (-not $?) {Write-Output 'See a more detailed error with: & "$env:WINDIR\System32\OpenSSH\sshd.exe" -t'}
+	Write-Output "Add your sshkeys to '~\.ssh\authorized_keys'"
 }
 if (skip "setup python for nvim") {
 	python -m pip install --upgrade pip
