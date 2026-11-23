@@ -41,6 +41,21 @@ function skip {
 	}
 }
 
+# install a program with winget
+function install {
+	[cmdletbinding()]
+	param(
+			[parameter(mandatory)]
+			[string[]]$programlist
+		 )
+
+	foreach ($prog in $ProgramList) {
+		Write-Verbose "installing '$prog'"
+		# system install
+		winget install --id $prog --scope machine --silent
+	}
+}
+
 # creates a link at $Path, linking to $Source
 # (backups previous files, deletes links)
 function link-config {
@@ -131,6 +146,19 @@ if ($Verbose) {
 # go to the script direcory (to nicely resolve local paths)
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 cd $ScriptDir
+
+## install programs
+Write-Header "# installing programs"
+if (skip) {
+	install Microsoft.PowerShell,ajeetdsouza.zoxide,junegunn.fzf,Git.Git
+	install Neovim.Neovim,Python.Python.3.14,BurntSushi.ripgrep.GNU
+	install glzr-io.glazewm,AutoHotkey.AutoHotkey
+	install JesseDuffield.lazygit,GnuPG.GnuPG,UniversalCtags.Ctags
+	install DigitalScholar.Zotero
+	Write-Output ""
+	Write-Output "You might need to restart this shell, if you just installed new programs."
+}
+Write-Output ""
 
 ask-link-root "$env:windir\v.bat" ".\PowerShell\\v.bat"
 
