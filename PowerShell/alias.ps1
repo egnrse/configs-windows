@@ -2,6 +2,7 @@
 # (by egnrse)
 
 Set-Alias lsa ls
+Set-Alias grep rg
 
 
 # using functions for aliases with arguments
